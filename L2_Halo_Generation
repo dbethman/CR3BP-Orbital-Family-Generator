@@ -1,0 +1,29 @@
+import pickle
+from PAC_Utilities import FamilySolver
+
+
+def main():
+    # Initialize the CR3BP environment
+    solver = FamilySolver()
+
+    
+
+    initial_guess =  [1.1809, 0.0, 0.0, 0.0, -0.1559, 0.0, 0.0]
+    tf_guess = 3.4155
+    init_step_x = 0
+    init_step_z = 0.001
+    min_distance = 1700/384400.0
+    
+    output_filename = 'l2_halo_family.pkl'
+
+    print(f"Calculating orbital family...")
+    family_data = solver.continuation(initial_guess, tf_guess, init_step_x, init_step_z, min_distance)
+
+    # Save the data
+    with open(output_filename, 'wb') as file:
+        pickle.dump(family_data, file)
+
+    print(f"Successfully saved {len(family_data)} orbits to {output_filename}.")
+
+if __name__ == '__main__':
+    main()
